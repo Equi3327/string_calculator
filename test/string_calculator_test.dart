@@ -34,5 +34,23 @@ void main() {
           e.toString().contains('negative numbers not allowed -2,-4'))),
     );
   });
+
+  test('ignores numbers bigger than 1000', () {
+    expect(add('2,1001'), 2);
+    expect(add('1000,2'), 1002); // 1000 is allowed
+  });
+
+  test('supports custom delimiter of any length', () {
+    expect(add('//[***]\n1***2***3'), 6);
+  });
+
+  test('supports multiple delimiters', () {
+    expect(add('//[*][%]\n1*2%3'), 6);
+  });
+
+  test('supports multiple delimiters of any length', () {
+    expect(add('//[**][%%]\n1**2%%3'), 6);
+    expect(add('//[foo][bar]\n1foo2bar3'), 6);
+  });
 }
 
